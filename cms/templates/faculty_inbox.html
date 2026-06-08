@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% block title %}Faculty Inbox{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Inbox — {{ faculty.name }}</h1>
+    <div style="display: flex; gap: 12px; align-items: center;">
+        {% if unread_count %}<span class="cms-status-indicator">{{ unread_count }} unread</span>{% endif %}
+        <a href="{% url 'faculty_logout' %}" class="cms-btn-secondary">Logout</a>
+    </div>
+</div>
+
+<p class="cms-alert-info">Department: <strong>{{ faculty.department.name }}</strong> · {{ faculty.designation }}</p>
+
+{% if inbox_messages %}
+<div class="cms-notices-page">
+    {% for m in inbox_messages %}
+    <div class="cms-notice-card cms-notice-card-full {% if not m.is_read %}cms-message-unread{% endif %}">
+        <div class="cms-notice-top">
+            <div class="cms-notice-title">{{ m.subject }}</div>
+            <div class="cms-notice-date">{{ m.created_at|date:"M d, Y H:i" }}</div>
+        </div>
+        <div class="cms-notice-meta">
+            <span class="cms-notice-chip">From: {{ m.sender.name }} ({{ m.sender.roll_no }})</span>
+            <span class="cms-notice-chip">{{ m.sender.department.name }}</span>
+            {% if not m.is_read %}<span class="cms-notice-chip cms-chip-new">New</span>{% endif %}
+        </div>
+        <div class="cms-notice-body cms-notice-body-full">{{ m.body|linebreaksbr }}</div>
+        {% if not m.is_read %}
+        <form method="post" style="margin-top: 12px;">
+            {% csrf_token %}
+            <input type="hidden" name="message_id" value="{{ m.id }}">
+            <button type="submit" class="cms-btn-secondary">Mark as read</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="cms-alert-info">No messages in your inbox yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block title %}Faculty Login{% endblock %}
+
+{% block main_content %}
+<div class="cms-login-container">
+    <div class="cms-login-card">
+        <div class="cms-module-header" style="margin-bottom: 25px;">
+            <h1 style="font-size: 22px;">Faculty Portal</h1>
+        </div>
+
+        {% if error %}
+        <div class="cms-alert-danger" style="margin-bottom: 20px;">
+            <span class="cms-alert-icon">⚠️</span>
+            <span>{{ error }}</span>
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="cms-form-group">
+                <label>Employee ID</label>
+                <input type="text" name="employee_id" class="cms-form-input" required autocomplete="off">
+            </div>
+            <div class="cms-form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="cms-form-input" required>
+            </div>
+            <button type="submit" class="cms-btn-primary cms-btn-login">Login</button>
+        </form>
+
+        <div class="cms-card-footer">
+            <span>Student?</span>
+            <a href="{% url 'login' %}" class="cms-footer-link">Student Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

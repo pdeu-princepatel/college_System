@@ -1,0 +1,1000 @@
+/* Blue Eclipse Custom Color Variables & Global Reset */
+:root {
+    --eclipse-deep: #0D1B2A;       /* Base Void Blue */
+    --eclipse-navy: #1B263B;       /* Component Dark Navy */
+    --eclipse-steel: #415A77;      /* Muted Balance Slate */
+    --eclipse-light: #778DA9;      /* Accent Highlighting */
+    --eclipse-glow: #E0E1DD;       /* Crisp Moonlit Text */
+    --canvas-bg: #F4F7FA;          /* Neutral Background */
+    --text-primary: #1C2541;      /* Deep text */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--canvas-bg);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Dual Horizontal Navigation (Centered Framework)
+   ========================================================================== */
+.cms-navbar {
+    background-color: var(--eclipse-deep);
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(13, 27, 42, 0.15);
+}
+
+.cms-navbar-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Navigation Tier 1: Core Institutional Header */
+.cms-nav-tier-one {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 12px 0;
+}
+
+.cms-nav-brand {
+    color: var(--eclipse-glow);
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cms-nav-brand:active {
+    transform: scale(0.98);
+}
+
+/* Navigation Tier 2: Dedicated Menu Item Link Grid */
+.cms-nav-tier-two {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(224, 225, 221, 0.1);
+    padding: 14px 0;
+}
+
+.cms-nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+.cms-nav-link {
+    color: var(--eclipse-light);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding-bottom: 6px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.25s ease;
+}
+
+/* Micro-Animation on Link Hover */
+.cms-nav-link:hover {
+    color: var(--eclipse-glow);
+    border-bottom: 2px solid var(--eclipse-glow);
+}
+
+/* ==========================================================================
+   Main Content Layout Workspace
+   ========================================================================== */
+.cms-main-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Standardized Content Header Grid */
+.cms-module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.cms-module-header h1 {
+    color: var(--eclipse-deep);
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================================================
+   Buttons & Interactive Elements (With Micro-Animations)
+   ========================================================================== */
+.cms-btn-primary {
+    background-color: var(--eclipse-deep);
+    color: var(--eclipse-glow);
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(13, 27, 42, 0.1);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cms-btn-primary:hover {
+    background-color: var(--eclipse-navy);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(13, 27, 42, 0.15);
+}
+
+.cms-btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(13, 27, 42, 0.1);
+}
+
+/* ==========================================================================
+   Data Presentation Tables
+   ========================================================================== */
+.cms-table-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
+    overflow: hidden;
+}
+
+.cms-dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.cms-dashboard-table th {
+    background-color: var(--eclipse-navy);
+    color: var(--eclipse-glow);
+    font-weight: 600;
+    padding: 16px 24px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cms-dashboard-table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid #EDF2F7;
+    font-size: 15px;
+    color: #4A5568;
+}
+
+/* Micro-Animation on Row Interactivity */
+.cms-dashboard-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.cms-dashboard-table tbody tr:hover {
+    background-color: #F8FAFC;
+}
+
+.cms-roll-number {
+    font-weight: 700;
+    color: var(--eclipse-deep);
+}
+
+.cms-dept-badge {
+    background-color: rgba(65, 90, 119, 0.1);
+    color: var(--eclipse-navy);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(65, 90, 119, 0.15);
+}
+
+.cms-table-empty {
+    text-align: center;
+    color: var(--eclipse-steel);
+    padding: 50px;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   Form Components
+   ========================================================================== */
+.cms-form-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
+}
+
+.cms-form-group {
+    margin-bottom: 25px;
+}
+
+.cms-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--eclipse-deep);
+    font-size: 14px;
+}
+
+.cms-form-input,
+.cms-form-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #CBD5E0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: #ffffff;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+/* Input Micro-Animation on Focus Click */
+.cms-form-input:focus,
+.cms-form-select:focus {
+    outline: none;
+    border-color: var(--eclipse-navy);
+    box-shadow: 0 0 0 3px rgba(27, 38, 59, 0.15);
+}
+
+/* ==========================================================================
+   Login Page Styling
+   ========================================================================== */
+.cms-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    min-height: calc(100vh - 250px);
+}
+
+.cms-login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(13, 27, 42, 0.08);
+    border: 1px solid #E2E8F0;
+    box-sizing: border-box;
+}
+
+.cms-btn-login {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.cms-card-footer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 25px;
+    font-size: 14px;
+    color: var(--eclipse-steel);
+}
+
+.cms-footer-link {
+    color: var(--eclipse-deep);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.cms-footer-link:hover {
+    color: var(--eclipse-light);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Alerts & Notifications
+   ========================================================================== */
+.cms-alert-danger {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #FFF5F5;
+    border: 1px solid #FEB2B2;
+    color: #C53030;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cms-alert-icon {
+    font-size: 16px;
+}
+
+/* ==========================================================================
+   Results Table Styling
+   ========================================================================== */
+.cms-alert-success {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #F0FDF4;
+    border: 1px solid #BBF7D0;
+    color: #15803D;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   Results Table Styling
+   ========================================================================== */
+.cms-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cms-results-table th,
+.cms-results-table td {
+    padding: 12px;
+    border: 1px solid #E2E8F0;
+    text-align: left;
+}
+
+.cms-results-table th {
+    background-color: #F9FAFB;
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   Dynamic Navigation
+   ========================================================================== */
+.cms-nav-logout {
+    color: #ff6b6b !important;
+}
+
+.cms-nav-logout:hover {
+    color: #fa5252 !important;
+    border-bottom-color: #ff6b6b !important;
+}
+
+.cms-status-indicator {
+    background-color: rgba(72, 187, 120, 0.1);
+    color: #38A169;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    display: inline-flex;
+    align-items: center;
+}
+
+/* ==========================================================================
+   Dynamic Dashboard Grid & Widgets
+   ========================================================================== */
+.cms-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .cms-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cms-profile-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
+    padding: 24px;
+}
+
+.cms-card-header h3 {
+    margin: 0 0 20px 0;
+    color: var(--eclipse-deep);
+    font-size: 18px;
+    font-weight: 700;
+    border-bottom: 2px solid #EDF2F7;
+    padding-bottom: 12px;
+}
+
+.cms-profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cms-profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed #EDF2F7;
+}
+
+.cms-profile-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.cms-profile-label {
+    font-weight: 600;
+    color: var(--eclipse-steel);
+    font-size: 14px;
+}
+
+.cms-profile-value {
+    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+/* Right Metrics Section */
+.cms-metrics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cms-metric-widget {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+
+.cms-metric-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 27, 42, 0.05);
+}
+
+.cms-metric-icon {
+    font-size: 32px;
+    background: rgba(119, 141, 169, 0.1);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cms-metric-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cms-metric-info h4 {
+    margin: 0 0 4px 0;
+    color: var(--eclipse-steel);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.cms-metric-title {
+    margin: 0;
+    color: var(--eclipse-deep);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.cms-metric-value {
+    margin: 0 0 2px 0;
+    color: var(--eclipse-deep);
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.cms-metric-subtext {
+    font-size: 12px;
+    color: var(--eclipse-light);
+}
+
+/* ==========================================================================
+   Secondary Buttons & Info Alerts
+   ========================================================================== */
+.cms-btn-secondary {
+    background-color: #ffffff;
+    color: var(--eclipse-deep);
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid #CBD5E0;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cms-btn-secondary:hover {
+    background-color: #F8FAFC;
+    border-color: var(--eclipse-steel);
+}
+
+.cms-btn-outline {
+    background-color: #ffffff;
+    color: var(--eclipse-deep);
+    border: 2px solid var(--eclipse-deep);
+    box-shadow: none;
+}
+
+.cms-btn-outline:hover {
+    background-color: var(--eclipse-deep);
+    color: var(--eclipse-glow);
+}
+
+.cms-alert-info {
+    background-color: rgba(119, 141, 169, 0.1);
+    border: 1px solid rgba(65, 90, 119, 0.2);
+    color: var(--eclipse-navy);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cms-dashboard-actions {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.cms-dashboard-actions .cms-btn-primary {
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   Attendance Module
+   ========================================================================== */
+.cms-attendance-summary {
+    margin-bottom: 8px;
+}
+
+.cms-attendance-summary-card {
+    max-width: 480px;
+}
+
+.cms-attendance-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.cms-attendance-present {
+    background-color: rgba(72, 187, 120, 0.12);
+    color: #276749;
+    border: 1px solid rgba(72, 187, 120, 0.25);
+}
+
+.cms-attendance-absent {
+    background-color: rgba(245, 101, 101, 0.12);
+    color: #C53030;
+    border: 1px solid rgba(245, 101, 101, 0.25);
+}
+
+.cms-attendance-late {
+    background-color: rgba(237, 137, 54, 0.12);
+    color: #C05621;
+    border: 1px solid rgba(237, 137, 54, 0.25);
+}
+
+.cms-attendance-excused {
+    background-color: rgba(66, 153, 225, 0.12);
+    color: #2B6CB0;
+    border: 1px solid rgba(66, 153, 225, 0.25);
+}
+
+.cms-table-empty-inline {
+    color: var(--eclipse-light);
+    font-style: italic;
+}
+
+/* ==========================================================================
+   Notices + Nav Notifications
+   ========================================================================== */
+.cms-nav-notices {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cms-nav-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background-color: #ff6b6b;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.cms-notice-panel {
+    margin-top: 32px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #E2E8F0;
+    padding: 24px;
+}
+
+.cms-notice-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.cms-notice-card {
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 16px;
+    background: #ffffff;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cms-notice-card:hover {
+    background-color: #F8FAFC;
+    border-color: #CBD5E0;
+}
+
+.cms-notice-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.cms-notice-title {
+    font-weight: 800;
+    color: var(--eclipse-deep);
+    font-size: 15px;
+}
+
+.cms-notice-date {
+    color: var(--eclipse-light);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.cms-notice-meta {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cms-notice-chip {
+    background-color: rgba(65, 90, 119, 0.1);
+    color: var(--eclipse-navy);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid rgba(65, 90, 119, 0.15);
+}
+
+.cms-notice-body {
+    margin-top: 12px;
+    color: #4A5568;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.cms-notices-page {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.cms-notice-card-full {
+    padding: 20px;
+}
+
+.cms-notice-body-full {
+    margin-top: 14px;
+}
+
+/* ==========================================================================
+   Filters, Contact, Messaging, Faculty
+   ========================================================================== */
+.cms-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.cms-filter-bar-multi {
+    flex-wrap: wrap;
+}
+
+.cms-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 180px;
+}
+
+.cms-filter-bar label,
+.cms-filter-field label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--eclipse-deep);
+}
+
+.cms-filter-select {
+    max-width: 280px;
+}
+
+.cms-filter-submit {
+    align-self: flex-end;
+    padding: 10px 18px;
+}
+
+.cms-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.cms-tab {
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--eclipse-steel);
+    border: 1px solid #E2E8F0;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.cms-tab:hover {
+    color: var(--eclipse-deep);
+    border-color: var(--eclipse-steel);
+}
+
+.cms-tab-active {
+    background: var(--eclipse-deep);
+    color: var(--eclipse-glow);
+    border-color: var(--eclipse-deep);
+}
+
+.cms-btn-link {
+    color: var(--eclipse-deep);
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.cms-btn-link:hover {
+    text-decoration: underline;
+    color: var(--eclipse-navy);
+}
+
+.cms-contact-mini {
+    font-size: 13px;
+    color: #4A5568;
+    line-height: 1.4;
+}
+
+.cms-textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+.cms-recipient-banner {
+    margin: 0 0 20px 0;
+    padding: 12px 16px;
+    background: rgba(65, 90, 119, 0.08);
+    border-radius: 6px;
+    color: var(--eclipse-navy);
+    font-size: 14px;
+}
+
+.cms-message-unread {
+    border-color: var(--eclipse-navy);
+    background: rgba(27, 38, 59, 0.03);
+}
+
+.cms-chip-new {
+    background-color: rgba(255, 107, 107, 0.15) !important;
+    color: #C53030 !important;
+    border-color: rgba(255, 107, 107, 0.3) !important;
+}
+
+/* ==========================================================================
+   Student Timetable Module Styles
+   ========================================================================== */
+.cms-timetable-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.cms-timetable-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 600px) {
+    .cms-timetable-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cms-day-column {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+}
+
+.cms-day-header {
+    background: var(--eclipse-deep);
+    color: var(--eclipse-glow);
+    margin: 0;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(224, 225, 221, 0.1);
+}
+
+.cms-lectures-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+}
+
+.cms-lecture-card {
+    background: #FAFCFF;
+    border-radius: 8px;
+    border: 1px solid #E2E9F3;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+.cms-lecture-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(65, 90, 119, 0.08);
+    border-color: var(--eclipse-light);
+}
+
+.cms-lecture-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--eclipse-steel);
+    letter-spacing: 0.5px;
+}
+
+.cms-lecture-subject {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.cms-lecture-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: #5A6A85;
+}
+
+.cms-lecture-faculty,
+.cms-lecture-room {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Premium Essential Lecture Highlight & Micro-Animations */
+.cms-essential-glow {
+    background: linear-gradient(135deg, #FFFDF5 0%, #FFF9E6 100%);
+    border: 1.5px solid #F59E0B;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
+    animation: essential-card-glow 3s infinite ease-in-out;
+}
+
+.cms-essential-glow:hover {
+    border-color: #D97706;
+    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.15);
+}
+
+.cms-essential-badge {
+    align-self: flex-start;
+    background-color: #FEF3C7;
+    color: #D97706;
+    border: 1px solid #FCD34D;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse-essential-badge 2s infinite ease-in-out;
+}
+
+@keyframes essential-card-glow {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(245, 158, 11, 0.22);
+    }
+}
+
+@keyframes pulse-essential-badge {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+

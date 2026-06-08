@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% block title %}Mark Attendance — Faculty{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Mark Attendance</h1>
+    <a href="{% url 'faculty_dashboard' %}" class="cms-btn-primary" style="background-color: var(--eclipse-steel); padding: 10px 20px; font-size: 13px;">
+        ← Back to Dashboard
+    </a>
+</div>
+
+<p class="cms-alert-info">Department: <strong>{{ faculty.department.name }}</strong> · Select a semester, date, and optionally a subject, then load students to mark attendance.</p>
+
+<!-- Filter Form -->
+<form method="GET" class="cms-filter-bar cms-filter-bar-multi" style="margin-top: 20px;">
+    <div class="cms-filter-field">
+        <label for="semester">Semester</label>
+        <input type="text" id="semester" name="semester" class="cms-form-input" value="{{ semester }}" placeholder="e.g. 2" required style="max-width: 200px;">
+    </div>
+    <div class="cms-filter-field">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" class="cms-form-input" value="{{ date }}" required style="max-width: 200px;">
+    </div>
+    <div class="cms-filter-field">
+        <label for="subject">Subject (optional)</label>
+        <input type="text" id="subject" name="subject" class="cms-form-input" value="{{ subject }}" placeholder="e.g. DSA" style="max-width: 200px;">
+    </div>
+    <button type="submit" class="cms-btn-primary cms-filter-submit">Load Students</button>
+</form>
+
+{% if error %}
+<div class="cms-alert-danger" style="margin-top: 20px;">
+    <span class="cms-alert-icon">⚠️</span>
+    <span>{{ error }}</span>
+</div>
+{% endif %}
+
+{% if success %}
+<div class="cms-alert-success" style="margin-top: 20px;">
+    <span class="cms-alert-icon">✓</span>
+    <span>{{ success }}</span>
+</div>
+{% endif %}
+
+{% if students_with_status %}
+<form method="POST" style="margin-top: 24px;">
+    {% csrf_token %}
+    <input type="hidden" name="semester" value="{{ semester }}">
+    <input type="hidden" name="date" value="{{ date }}">
+    <input type="hidden" name="subject" value="{{ subject }}">
+
+    <div class="cms-table-card">
+        <table class="cms-dashboard-table">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Student Name</th>
+                    {% for code, label in status_choices %}
+                    <th style="text-align: center;">{{ label }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for entry in students_with_status %}
+                <tr>
+                    <td class="cms-roll-number">{{ entry.student.roll_no }}</td>
+                    <td>{{ entry.student.name }}</td>
+                    {% for code, label in status_choices %}
+                    <td style="text-align: center;">
+                        <input type="radio" name="status_{{ entry.student.id }}" value="{{ code }}"
+                            {% if entry.current_status == code %}checked{% endif %}
+                            style="width: 18px; height: 18px; cursor: pointer;">
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="cms-dashboard-actions" style="margin-top: 20px;">
+        <button type="submit" class="cms-btn-primary" style="padding: 14px 40px; font-size: 15px;">
+            Save Attendance
+        </button>
+    </div>
+</form>
+{% elif semester and date %}
+<p class="cms-alert-info" style="margin-top: 20px;">No students found in <strong>{{ faculty.department.name }}</strong> for Semester <strong>{{ semester }}</strong>.</p>
+{% endif %}
+{% endblock %}

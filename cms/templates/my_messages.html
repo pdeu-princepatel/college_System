@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% block title %}My Messages{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>My Sent Messages</h1>
+    <a href="{% url 'contact' %}" class="cms-btn-primary">New Message</a>
+</div>
+
+{% if sent_messages %}
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>To</th>
+                <th>Preview</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in sent_messages %}
+            <tr>
+                <td>{{ m.created_at|date:"M d, Y H:i" }}</td>
+                <td style="font-weight: 600;">{{ m.subject }}</td>
+                <td>
+                    {% if m.recipient_type == 'faculty' and m.faculty %}{{ m.faculty.name }}{% endif %}
+                    {% if m.recipient_type == 'student' and m.recipient_student %}{{ m.recipient_student.name }}{% endif %}
+                    {% if m.recipient_type == 'admin' %}College Admin{% endif %}
+                </td>
+                <td>{{ m.body|truncatechars:80 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="cms-alert-info">You have not sent any messages yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block title %}Content Store{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Content Store</h1>
+</div>
+
+<form method="get" class="cms-filter-bar cms-filter-bar-multi">
+    <div class="cms-filter-field">
+        <label for="department">Department</label>
+        <select name="department" id="department" class="cms-form-select cms-filter-select">
+            <option value="">All (scoped to you)</option>
+            {% for dept in departments %}
+            <option value="{{ dept.id }}" {% if selected_department == dept.id|stringformat:"s" %}selected{% endif %}>{{ dept.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="cms-filter-field">
+        <label for="type">Type</label>
+        <select name="type" id="type" class="cms-form-select cms-filter-select">
+            <option value="">All Types</option>
+            {% for val, label in type_choices %}
+            <option value="{{ val }}" {% if selected_type == val %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="cms-btn-primary cms-filter-submit">Apply Filters</button>
+</form>
+
+{% if content_items %}
+<div class="cms-notices-page">
+    {% for item in content_items %}
+    <div class="cms-notice-card cms-notice-card-full">
+        <div class="cms-notice-top">
+            <div class="cms-notice-title">{{ item.title }}</div>
+            <div class="cms-notice-date">{{ item.created_at|date:"M d, Y" }}</div>
+        </div>
+        <div class="cms-notice-meta">
+            <span class="cms-notice-chip">{{ item.get_content_type_display }}</span>
+            {% if item.department %}<span class="cms-notice-chip">{{ item.department.name }}</span>{% endif %}
+            {% if item.semester %}<span class="cms-notice-chip">Sem {{ item.semester }}</span>{% endif %}
+            {% if item.faculty %}<span class="cms-notice-chip">{{ item.faculty.name }}</span>{% endif %}
+        </div>
+        {% if item.description %}
+        <div class="cms-notice-body">{{ item.description }}</div>
+        {% endif %}
+        {% if item.body %}
+        <div class="cms-notice-body cms-notice-body-full">{{ item.body|linebreaksbr }}</div>
+        {% endif %}
+        {% if item.external_url %}
+        <a href="{{ item.external_url }}" class="cms-btn-link" target="_blank" rel="noopener">Open resource</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="cms-alert-info">No content available for your filters yet.</p>
+{% endif %}
+{% endblock %}

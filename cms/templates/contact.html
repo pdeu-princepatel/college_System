@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+{% block title %}Contact Directory{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Contact Anyone</h1>
+    <a href="{% url 'message_compose' %}?type=admin" class="cms-btn-primary">Message College Admin</a>
+</div>
+
+<form method="get" class="cms-filter-bar">
+    <input type="hidden" name="tab" value="{{ active_tab }}">
+    <label for="department">Department</label>
+    <select name="department" id="department" class="cms-form-select cms-filter-select" onchange="this.form.submit()">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept.id }}" {% if selected_department == dept.id|stringformat:"s" %}selected{% endif %}>{{ dept.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div class="cms-tabs">
+    <a href="?tab=faculty{% if selected_department %}&department={{ selected_department }}{% endif %}" class="cms-tab {% if active_tab == 'faculty' %}cms-tab-active{% endif %}">Faculty</a>
+    <a href="?tab=students{% if selected_department %}&department={{ selected_department }}{% endif %}" class="cms-tab {% if active_tab == 'students' %}cms-tab-active{% endif %}">Students</a>
+</div>
+
+{% if active_tab == 'faculty' %}
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Department</th>
+                <th>Email / Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in faculty_contacts %}
+            <tr>
+                <td style="font-weight: 500;">{{ f.name }}</td>
+                <td>{{ f.designation }}</td>
+                <td><span class="cms-dept-badge">{{ f.department.name }}</span></td>
+                <td><div class="cms-contact-mini">{{ f.email }}{% if f.phone %}<br>{{ f.phone }}{% endif %}</div></td>
+                <td><a href="{% url 'message_compose' %}?type=faculty&faculty={{ f.id }}" class="cms-btn-link">Message</a></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="cms-table-empty">No faculty to contact.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Semester</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in student_contacts %}
+            <tr>
+                <td class="cms-roll-number">{{ s.roll_no }}</td>
+                <td style="font-weight: 500;">{{ s.name }}</td>
+                <td><span class="cms-dept-badge">{{ s.department.name }}</span></td>
+                <td>{% if s.semester %}{{ s.semester }}{% else %}—{% endif %}</td>
+                <td><a href="{% url 'message_compose' %}?type=student&student={{ s.id }}" class="cms-btn-link">Message</a></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="cms-table-empty">No students to contact.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="cms-dashboard-actions" style="margin-top: 20px;">
+    <a href="{% url 'faculty_list' %}" class="cms-btn-secondary">Faculty List</a>
+    <a href="{% url 'my_messages' %}" class="cms-btn-secondary">My Sent Messages</a>
+</div>
+{% endblock %}

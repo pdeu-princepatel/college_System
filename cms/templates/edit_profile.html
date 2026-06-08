@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+
+{% block title %}Edit Profile - College Management System{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Edit Your Profile</h1>
+    <a href="{% url 'index' %}" class="cms-btn-primary" style="background-color: var(--eclipse-steel); padding: 10px 20px; font-size: 13px;">
+        ← Back to Dashboard
+    </a>
+</div>
+
+<div class="cms-form-card" style="max-width: 600px; margin: 0 auto;">
+    {% if error %}
+    <div class="cms-alert-danger" style="margin-bottom: 25px;">
+        <span class="cms-alert-icon">⚠️</span>
+        <span class="cms-alert-message">{{ error }}</span>
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="cms-alert-success" style="margin-bottom: 25px;">
+        <span class="cms-alert-icon">✓</span>
+        <span class="cms-alert-message">{{ success }}</span>
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="cms-form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" class="cms-form-input" value="{{ student.name }}" required autocomplete="off">
+        </div>
+
+        <div class="cms-form-group">
+            <label for="roll_no">Roll Number (Read-Only)</label>
+            <input type="text" id="roll_no" class="cms-form-input" value="{{ student.roll_no }}" disabled style="background-color: #EDF2F7; cursor: not-allowed; color: var(--eclipse-steel);">
+        </div>
+
+        <div class="cms-form-group">
+            <label for="DOB">Date of Birth</label>
+            <input type="date" id="DOB" name="DOB" class="cms-form-input" value="{{ student.DOB|date:'Y-m-d' }}" required>
+        </div>
+
+        <div class="cms-form-group">
+            <label for="department">Department (Read-Only)</label>
+            <input type="text" id="department" class="cms-form-input" value="{{ student.department.name }}" disabled style="background-color: #EDF2F7; cursor: not-allowed; color: var(--eclipse-steel);">
+        </div>
+
+        <div class="cms-form-group">
+            <label for="semester">Semester</label>
+            <input type="text" id="semester" name="semester" class="cms-form-input" value="{{ student.semester }}" placeholder="e.g. 1, 2, 3, 4, 5, 6" autocomplete="off">
+        </div>
+
+        <div class="cms-form-group" style="margin-bottom: 30px;">
+            <label for="password">New Password</label>
+            <input type="password" id="password" name="password" class="cms-form-input" placeholder="Leave blank to keep your current password">
+            <span style="font-size: 12px; color: var(--eclipse-light); margin-top: 4px; display: block;">Only fill this out if you wish to change your login password.</span>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button type="submit" class="cms-btn-primary" style="flex: 2; padding: 14px;">
+                Save Profile Changes
+            </button>
+            <a href="{% url 'index' %}" class="cms-btn-primary" style="flex: 1; padding: 14px; background-color: transparent; border: 1px solid var(--eclipse-steel); color: var(--eclipse-deep); text-align: center; box-shadow: none;">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

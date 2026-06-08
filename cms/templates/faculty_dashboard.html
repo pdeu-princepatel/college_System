@@ -1,0 +1,108 @@
+{% extends 'index.html' %}
+{% block title %}Faculty Dashboard — {{ faculty.name }}{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Welcome, {{ faculty.name }}! 👋</h1>
+    <span class="cms-status-indicator">Faculty Portal: <strong>Active</strong></span>
+</div>
+
+<div class="cms-dashboard-grid">
+    <!-- Left Panel: Faculty Profile Card -->
+    <div class="cms-profile-card">
+        <div class="cms-card-header">
+            <h3>Your Faculty Profile</h3>
+        </div>
+        <div class="cms-profile-details">
+            <div class="cms-profile-row">
+                <span class="cms-profile-label">Full Name:</span>
+                <span class="cms-profile-value">{{ faculty.name }}</span>
+            </div>
+            <div class="cms-profile-row">
+                <span class="cms-profile-label">Employee ID:</span>
+                <span class="cms-profile-value cms-roll-number">{{ faculty.employee_id }}</span>
+            </div>
+            <div class="cms-profile-row">
+                <span class="cms-profile-label">Designation:</span>
+                <span class="cms-profile-value">{{ faculty.designation }}</span>
+            </div>
+            <div class="cms-profile-row">
+                <span class="cms-profile-label">Department:</span>
+                <span class="cms-profile-value"><span class="cms-dept-badge">{{ faculty.department.name }}</span></span>
+            </div>
+            <div class="cms-profile-row">
+                <span class="cms-profile-label">Email:</span>
+                <span class="cms-profile-value">{{ faculty.email }}</span>
+            </div>
+            <div class="cms-profile-row">
+                <span class="cms-profile-label">Phone:</span>
+                <span class="cms-profile-value">{% if faculty.phone %}{{ faculty.phone }}{% else %}<span class="cms-table-empty-inline">Not set</span>{% endif %}</span>
+            </div>
+        </div>
+        <div class="cms-profile-actions" style="margin-top: 25px; display: flex; justify-content: flex-end;">
+            <a href="{% url 'faculty_edit_profile' %}" class="cms-btn-primary" style="padding: 10px 20px; font-size: 13px; border-radius: 4px;">
+                Edit Profile Details
+            </a>
+        </div>
+    </div>
+
+    <!-- Right Panel: Overview Metrics -->
+    <div class="cms-metrics-container">
+        <div class="cms-metric-widget">
+            <div class="cms-metric-icon">🏢</div>
+            <div class="cms-metric-info">
+                <h4>Department</h4>
+                <p class="cms-metric-title">{{ faculty.department.name }}</p>
+            </div>
+        </div>
+
+        <div class="cms-metric-widget">
+            <div class="cms-metric-icon">👥</div>
+            <div class="cms-metric-info">
+                <h4>Students in Department</h4>
+                <p class="cms-metric-value">{{ student_count }}</p>
+                <span class="cms-metric-subtext">Currently enrolled</span>
+            </div>
+        </div>
+
+        <div class="cms-metric-widget">
+            <div class="cms-metric-icon">👨‍🏫</div>
+            <div class="cms-metric-info">
+                <h4>Faculty Colleagues</h4>
+                <p class="cms-metric-value">{{ faculty_count }}</p>
+                <span class="cms-metric-subtext">Active in your department</span>
+            </div>
+        </div>
+
+        <div class="cms-metric-widget">
+            <div class="cms-metric-icon">📬</div>
+            <div class="cms-metric-info">
+                <h4>Unread Messages</h4>
+                {% if unread_count > 0 %}
+                <p class="cms-metric-value">{{ unread_count }}</p>
+                <span class="cms-metric-subtext">Student messages awaiting reply</span>
+                {% else %}
+                <p class="cms-metric-title">All caught up</p>
+                <span class="cms-metric-subtext">No unread messages</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="cms-metric-widget">
+            <div class="cms-metric-icon">📅</div>
+            <div class="cms-metric-info">
+                <h4>Active Session</h4>
+                <p class="cms-metric-value">Spring 2026</p>
+                <span class="cms-metric-subtext">College Academic Cycle</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cms-dashboard-actions">
+    <a href="{% url 'faculty_attendance' %}" class="cms-btn-primary">Mark Attendance</a>
+    <a href="{% url 'faculty_results' %}" class="cms-btn-primary cms-btn-outline">Add / Update Results</a>
+    <a href="{% url 'faculty_inbox' %}" class="cms-btn-primary cms-btn-outline">View Inbox</a>
+    <a href="{% url 'faculty_edit_profile' %}" class="cms-btn-primary cms-btn-outline">Edit Profile</a>
+</div>
+{% endblock %}

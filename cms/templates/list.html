@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+
+{% block title %}Student Directory{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Student Directory</h1>
+    <a href="{% url 'contact' %}" class="cms-btn-secondary">Contact Directory</a>
+</div>
+
+<form method="get" class="cms-filter-bar">
+    <label for="department">Department</label>
+    <select name="department" id="department" class="cms-form-select cms-filter-select" onchange="this.form.submit()">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept.id }}" {% if selected_department == dept.id|stringformat:"s" %}selected{% endif %}>{{ dept.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr>
+                <th>Roll Number</th>
+                <th>Full Name</th>
+                <th>Date of Birth</th>
+                <th>Department</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td class="cms-roll-number">{{ student.roll_no }}</td>
+                <td style="font-weight: 500;">{{ student.name }}</td>
+                <td>{{ student.DOB }}</td>
+                <td><span class="cms-dept-badge">{{ student.department.name }}</span></td>
+                <td><a href="{% url 'message_compose' %}?type=student&student={{ student.id }}" class="cms-btn-link">Message</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="cms-table-empty">No student records found within the database.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

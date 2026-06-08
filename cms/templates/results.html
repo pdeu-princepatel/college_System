@@ -1,0 +1,33 @@
+{% extends 'index.html' %}
+{% block title %}My Academic Results{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header"><h2>Academic Results</h2></div>
+
+{% if results %}
+<table class="cms-results-table">
+    <thead>
+        <tr>
+            <th>Semester</th>
+            <th>Course</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for r in results %}
+        <tr>
+            <td>{{ r.semester }}</td>
+            <td>{{ r.course }}</td>
+            <td>{{ r.grade }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="cms-alert-info">No results recorded yet.</p>
+{% endif %}
+
+<div class="cms-dashboard-actions" style="margin-top: 20px;">
+    <a href="{% url 'index' %}" class="cms-btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

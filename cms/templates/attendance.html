@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% block title %}My Attendance{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h2>Attendance Records</h2>
+    {% if attendance_percentage is not None %}
+    <span class="cms-status-indicator">Overall: <strong>{{ attendance_percentage }}%</strong></span>
+    {% endif %}
+</div>
+
+{% if attendance_total > 0 %}
+<div class="cms-attendance-summary">
+    <div class="cms-metric-widget cms-attendance-summary-card">
+        <div class="cms-metric-icon">✅</div>
+        <div class="cms-metric-info">
+            <h4>Days Marked Present</h4>
+            <p class="cms-metric-value">{{ attendance_present }} / {{ attendance_total }}</p>
+            <span class="cms-metric-subtext">Present, late, or excused count toward attendance</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if records %}
+<div class="cms-table-card" style="margin-top: 24px;">
+    <table class="cms-dashboard-table cms-attendance-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Subject</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for record in records %}
+            <tr>
+                <td>{{ record.date|date:"F d, Y" }}</td>
+                <td>{% if record.subject %}{{ record.subject }}{% else %}<span class="cms-table-empty-inline">General</span>{% endif %}</td>
+                <td>
+                    <span class="cms-attendance-badge cms-attendance-{{ record.status }}">
+                        {{ record.get_status_display }}
+                    </span>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p class="cms-alert-info">No attendance records yet. Records are added by college staff via the admin portal.</p>
+{% endif %}
+
+<div class="cms-dashboard-actions">
+    <a href="{% url 'index' %}" class="cms-btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

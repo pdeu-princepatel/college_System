@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% block title %}Faculty Directory{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Faculty Directory</h1>
+    <a href="{% url 'contact' %}" class="cms-btn-secondary">Contact Directory</a>
+</div>
+
+<form method="get" class="cms-filter-bar">
+    <label for="department">Department</label>
+    <select name="department" id="department" class="cms-form-select cms-filter-select" onchange="this.form.submit()">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept.id }}" {% if selected_department == dept.id|stringformat:"s" %}selected{% endif %}>{{ dept.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Department</th>
+                <th>Contact</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in faculty_list %}
+            <tr>
+                <td class="cms-roll-number">{{ f.employee_id }}</td>
+                <td style="font-weight: 500;">{{ f.name }}</td>
+                <td>{{ f.designation }}</td>
+                <td><span class="cms-dept-badge">{{ f.department.name }}</span></td>
+                <td>
+                    <div class="cms-contact-mini">{{ f.email }}{% if f.phone %}<br>{{ f.phone }}{% endif %}</div>
+                </td>
+                <td>
+                    <a href="{% url 'message_compose' %}?type=faculty&faculty={{ f.id }}" class="cms-btn-link">Send Message</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="cms-table-empty">No faculty found for this department.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

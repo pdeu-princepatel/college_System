@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block title %}Login - College Management System{% endblock %}
+
+{% block main_content %}
+<div class="cms-login-container">
+    <div class="cms-login-card">
+        <div class="cms-card-header" style="text-align: center; margin-bottom: 30px;">
+            <h2 style="color: var(--eclipse-deep); font-weight: 700; margin: 0; font-size: 24px;">Student Portal Login</h2>
+            <p style="color: var(--eclipse-steel); margin: 8px 0 0 0; font-size: 14px;">Sign in with your credentials to access your dashboard</p>
+        </div>
+
+        {% if error %}
+        <div class="cms-alert-danger">
+            <span class="cms-alert-icon">⚠️</span>
+            <span class="cms-alert-message">{{ error }}</span>
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="cms-form-group">
+                <label for="roll_no">Roll Number</label>
+                <input type="text" id="roll_no" name="roll_no" class="cms-form-input" placeholder="Enter your Roll Number" required autocomplete="off">
+            </div>
+
+            <div class="cms-form-group" style="margin-bottom: 30px;">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="cms-form-input" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="cms-btn-primary cms-btn-login">
+                Sign In to System
+            </button>
+        </form>
+
+        <div class="cms-card-footer">
+            <span>New student?</span>
+            <a href="{% url 'addstudent' %}" class="cms-footer-link">Register Student Account</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

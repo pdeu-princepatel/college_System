@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block title %}Send Message{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>Send Message</h1>
+    <a href="{% url 'contact' %}" class="cms-btn-secondary">Back to Contacts</a>
+</div>
+
+<div class="cms-form-card" style="max-width: 640px; margin: 0 auto;">
+    <p class="cms-recipient-banner">To: <strong>{{ recipient_label }}</strong></p>
+
+    {% if error %}
+    <div class="cms-alert-danger" style="margin-bottom: 20px;">
+        <span class="cms-alert-icon">⚠️</span>
+        <span>{{ error }}</span>
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="cms-alert-success" style="margin-bottom: 20px;">
+        <span class="cms-alert-icon">✓</span>
+        <span>{{ success }}</span>
+    </div>
+    <a href="{% url 'my_messages' %}" class="cms-btn-primary">View Sent Messages</a>
+    {% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="recipient_type" value="{{ recipient_type }}">
+        {% if faculty %}<input type="hidden" name="faculty_id" value="{{ faculty.id }}">{% endif %}
+        {% if recipient_student %}<input type="hidden" name="recipient_student_id" value="{{ recipient_student.id }}">{% endif %}
+
+        <div class="cms-form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" class="cms-form-input" required>
+        </div>
+
+        <div class="cms-form-group">
+            <label for="body">Message</label>
+            <textarea id="body" name="body" class="cms-form-input cms-textarea" rows="6" required></textarea>
+        </div>
+
+        <button type="submit" class="cms-btn-primary" style="width: 100%; padding: 14px;">Send Message</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

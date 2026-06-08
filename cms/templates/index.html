@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}College Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon-2.png' %}">
+</head>
+
+<body>
+
+    <!-- Dual Horizontal Navigation Module Setup -->
+    <nav class="cms-navbar">
+        <div class="cms-navbar-container">
+
+            <div class="cms-nav-tier-one">
+                <a href="{% url 'index' %}" class="cms-nav-brand">College Management System</a>
+            </div>
+            <!-- Tier 2: Links Interface Routing Row -->
+            <div class="cms-nav-tier-two">
+                <div class="cms-nav-links">
+                {% if request.session.student_id %}
+                    <a href="{% url 'index' %}" class="cms-nav-link">Home</a>
+                    <a href="{% url 'students' %}" class="cms-nav-link">Students</a>
+                    <a href="{% url 'faculty_list' %}" class="cms-nav-link">Faculty</a>
+                    <a href="{% url 'content_list' %}" class="cms-nav-link">Content</a>
+                    <a href="{% url 'contact' %}" class="cms-nav-link">Contact</a>
+                    <a href="{% url 'attendance' %}" class="cms-nav-link">Attendance</a>
+                    <a href="{% url 'timetable' %}" class="cms-nav-link">Timetable</a>
+                    <a href="{% url 'notices' %}" class="cms-nav-link cms-nav-notices">
+                        Notices
+                        {% if unread_notice_count and unread_notice_count > 0 %}
+                        <span class="cms-nav-badge">{{ unread_notice_count }}</span>
+                        {% endif %}
+                    </a>
+                    <a href="{% url 'my_messages' %}" class="cms-nav-link">My Messages</a>
+                    <a href="{% url 'addstudent' %}" class="cms-nav-link">Register Student</a>
+                    <a href="{% url 'logout' %}" class="cms-nav-link cms-nav-logout">Logout</a>
+                {% elif request.session.faculty_id %}
+                    <a href="{% url 'faculty_dashboard' %}" class="cms-nav-link">Dashboard</a>
+                    <a href="{% url 'faculty_inbox' %}" class="cms-nav-link">Inbox</a>
+                    <a href="{% url 'faculty_attendance' %}" class="cms-nav-link">Mark Attendance</a>
+                    <a href="{% url 'faculty_results' %}" class="cms-nav-link">Add Results</a>
+                    <a href="{% url 'faculty_edit_profile' %}" class="cms-nav-link">Edit Profile</a>
+                    <a href="{% url 'faculty_logout' %}" class="cms-nav-link cms-nav-logout">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="cms-nav-link">Login</a>
+                    <a href="{% url 'faculty_login' %}" class="cms-nav-link">Faculty Login</a>
+                    <a href="{% url 'addstudent' %}" class="cms-nav-link">Register Student</a>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Presentation Hub -->
+    <div class="cms-main-container">
+        {% block main_content %}
+        <div class="cms-module-header">
+            <h1>Welcome, {{ student.name }}! 👋</h1>
+            <span class="cms-status-indicator">Portal Status: <strong>Active</strong></span>
+        </div>
+
+        <div class="cms-dashboard-grid">
+            <!-- Left Panel: Profile Detail Widget -->
+            <div class="cms-profile-card">
+                <div class="cms-card-header">
+                    <h3>Your Academic Profile</h3>
+                </div>
+                <div class="cms-profile-details">
+                    <div class="cms-profile-row">
+                        <span class="cms-profile-label">Full Name:</span>
+                        <span class="cms-profile-value">{{ student.name }}</span>
+                    </div>
+                    <div class="cms-profile-row">
+                        <span class="cms-profile-label">Roll Number:</span>
+                        <span class="cms-profile-value cms-roll-number">{{ student.roll_no }}</span>
+                    </div>
+                    <div class="cms-profile-row">
+                        <span class="cms-profile-label">Date of Birth:</span>
+                        <span class="cms-profile-value">{{ student.DOB|date:"F d, Y" }}</span>
+                    </div>
+                    <div class="cms-profile-row">
+                        <span class="cms-profile-label">Department:</span>
+                        <span class="cms-profile-value"><span class="cms-dept-badge">{{ student.department.name }}</span></span>
+                    </div>
+                    <div class="cms-profile-row">
+                        <span class="cms-profile-label">Semester:</span>
+                        <span class="cms-profile-value">{% if student.semester %}{{ student.semester }}{% else %}<span class="cms-table-empty-inline">Not set</span>{% endif %}</span>
+                    </div>
+                </div>
+                <div class="cms-profile-actions" style="margin-top: 25px; display: flex; justify-content: flex-end;">
+                    <a href="{% url 'edit_profile' %}" class="cms-btn-primary" style="padding: 10px 20px; font-size: 13px; border-radius: 4px;">
+                        Edit Profile Details
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Panel: Overview Metrics Widgets -->
+            <div class="cms-metrics-container">
+                <div class="cms-metric-widget">
+                    <div class="cms-metric-icon">🏢</div>
+                    <div class="cms-metric-info">
+                        <h4>Department</h4>
+                        <p class="cms-metric-title">{{ student.department.name }}</p>
+                    </div>
+                </div>
+
+                <div class="cms-metric-widget">
+                    <div class="cms-metric-icon">👥</div>
+                    <div class="cms-metric-info">
+                        <h4>Peers Registered</h4>
+                        <p class="cms-metric-value">{{ peer_count }}</p>
+                        <span class="cms-metric-subtext">Students in your department</span>
+                    </div>
+                </div>
+
+                <div class="cms-metric-widget">
+                    <div class="cms-metric-icon">📅</div>
+                    <div class="cms-metric-info">
+                        <h4>Active Session</h4>
+                        <p class="cms-metric-value">Spring 2026</p>
+                        <span class="cms-metric-subtext">College Academic Cycle</span>
+                    </div>
+                </div>
+
+                <div class="cms-metric-widget">
+                    <div class="cms-metric-icon">📋</div>
+                    <div class="cms-metric-info">
+                        <h4>Attendance Rate</h4>
+                        {% if attendance_percentage is not None %}
+                        <p class="cms-metric-value">{{ attendance_percentage }}%</p>
+                        <span class="cms-metric-subtext">{{ attendance_present }} of {{ attendance_total }} days marked</span>
+                        {% else %}
+                        <p class="cms-metric-title">No records yet</p>
+                        <span class="cms-metric-subtext">View full attendance history</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="cms-metric-widget">
+                    <div class="cms-metric-icon">👨‍🏫</div>
+                    <div class="cms-metric-info">
+                        <h4>Faculty</h4>
+                        <p class="cms-metric-value">{{ faculty_count }}</p>
+                        <span class="cms-metric-subtext">In your department</span>
+                    </div>
+                </div>
+
+                <div class="cms-metric-widget">
+                    <div class="cms-metric-icon">📣</div>
+                    <div class="cms-metric-info">
+                        <h4>Notices</h4>
+                        {% if unread_notice_count and unread_notice_count > 0 %}
+                        <p class="cms-metric-value">{{ unread_notice_count }}</p>
+                        <span class="cms-metric-subtext">Unread notices</span>
+                        {% else %}
+                        <p class="cms-metric-title">All caught up</p>
+                        <span class="cms-metric-subtext">No unread notices</span>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+    </div>
+    <div class="cms-dashboard-actions">
+        <a href="{% url 'results' %}" class="cms-btn-primary">View My Academic Results</a>
+        <a href="{% url 'attendance' %}" class="cms-btn-primary cms-btn-outline">View My Attendance</a>
+        <a href="{% url 'timetable' %}" class="cms-btn-primary cms-btn-outline">My Timetable</a>
+        <a href="{% url 'notices' %}" class="cms-btn-primary cms-btn-outline">View Notices</a>
+        <a href="{% url 'faculty_list' %}" class="cms-btn-primary cms-btn-outline">Faculty List</a>
+        <a href="{% url 'contact' %}" class="cms-btn-primary cms-btn-outline">Contact Directory</a>
+    </div>
+
+    {% if latest_notices %}
+    <div class="cms-notice-panel">
+        <div class="cms-card-header">
+            <h3>Latest Notices</h3>
+        </div>
+        <div class="cms-notice-list">
+            {% for n in latest_notices %}
+            <div class="cms-notice-card">
+                <div class="cms-notice-top">
+                    <div class="cms-notice-title">{{ n.title }}</div>
+                    <div class="cms-notice-date">{{ n.created_at|date:"M d, Y" }}</div>
+                </div>
+                <div class="cms-notice-meta">
+                    {% if n.department %}<span class="cms-notice-chip">{{ n.department.name }}</span>{% endif %}
+                    {% if n.semester %}<span class="cms-notice-chip">Sem {{ n.semester }}</span>{% endif %}
+                </div>
+                <div class="cms-notice-body">{{ n.message|truncatechars:160 }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+    </div>
+
+</body>
+
+</html>

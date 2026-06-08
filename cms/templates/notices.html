@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block title %}Notices{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h2>Notices</h2>
+    <a href="{% url 'index' %}" class="cms-btn-secondary">Back to Dashboard</a>
+</div>
+
+{% if notices %}
+<div class="cms-notices-page">
+    {% for n in notices %}
+    <div class="cms-notice-card cms-notice-card-full">
+        <div class="cms-notice-top">
+            <div class="cms-notice-title">{{ n.title }}</div>
+            <div class="cms-notice-date">{{ n.created_at|date:"F d, Y" }}</div>
+        </div>
+        <div class="cms-notice-meta">
+            {% if n.department %}<span class="cms-notice-chip">{{ n.department.name }}</span>{% endif %}
+            {% if n.semester %}<span class="cms-notice-chip">Sem {{ n.semester }}</span>{% endif %}
+        </div>
+        <div class="cms-notice-body cms-notice-body-full">{{ n.message|linebreaksbr }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="cms-alert-info">No notices available for your department/semester yet.</p>
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block title %}My Timetable - College Management System{% endblock %}
+
+{% block main_content %}
+<div class="cms-module-header">
+    <h1>📅 My Lecture Timetable</h1>
+    <span class="cms-status-indicator">Semester: <strong>{% if student.semester %}{{ student.semester }}{% else %}Not Set{% endif %}</strong></span>
+</div>
+
+<div class="cms-timetable-container">
+    {% if not student.semester %}
+    <div class="cms-alert-info">
+        <span class="cms-alert-icon">ℹ️</span>
+        Your semester is not currently set in your profile. Please <a href="{% url 'edit_profile' %}" style="color: var(--eclipse-deep); font-weight: 700; text-decoration: underline;">update your profile</a> to view your semester-specific timetable.
+    </div>
+    {% elif not has_timetable %}
+    <div class="cms-alert-info">
+        <span class="cms-alert-icon">ℹ️</span>
+        No timetable entries have been scheduled for <strong>{{ student.department.name }}</strong> (Semester {{ student.semester }}) yet. Please check back later.
+    </div>
+    {% else %}
+    <div class="cms-timetable-grid">
+        {% for day, lectures in timetable.items %}
+        <div class="cms-day-column">
+            <h3 class="cms-day-header">{{ day }}</h3>
+            <div class="cms-lectures-stack">
+                {% for lecture in lectures %}
+                <div class="cms-lecture-card {% if lecture.is_essential %}cms-essential-glow{% endif %}">
+                    {% if lecture.is_essential %}
+                    <span class="cms-essential-badge">⚠️ Essential Lecture</span>
+                    {% endif %}
+                    <div class="cms-lecture-time">
+                        {{ lecture.start_time|time:"H:i" }} - {{ lecture.end_time|time:"H:i" }}
+                    </div>
+                    <h4 class="cms-lecture-subject">{{ lecture.subject }}</h4>
+                    <div class="cms-lecture-meta">
+                        {% if lecture.faculty %}
+                        <span class="cms-lecture-faculty">👤 {{ lecture.faculty.name }}</span>
+                        {% endif %}
+                        {% if lecture.classroom %}
+                        <span class="cms-lecture-room">📍 Room: {{ lecture.classroom }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
