@@ -1,0 +1,35 @@
+{% extends 'staff/base_staff.html' %}
+{% block content %}
+<div class="cms-module-header">
+    <h1>Manage Attendance</h1>
+</div>
+
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr>
+                <th>Roll No</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in attendance %}
+            <tr>
+                <td class="cms-roll-number">{{ record.student.roll_no }}</td>
+                <td>{{ record.student.name }}</td>
+                <td>
+                    <span class="cms-attendance-badge {% if record.status == 'present' %}cms-attendance-present{% else %}cms-attendance-absent{% endif %}">
+                        {{ record.status }}
+                    </span>
+                </td>
+                <td>{{ record.date }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="cms-table-empty">No attendance records found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

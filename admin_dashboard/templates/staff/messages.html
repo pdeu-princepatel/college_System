@@ -1,0 +1,19 @@
+{% extends 'staff/base_staff.html' %}
+{% block content %}
+<div class="cms-module-header">
+    <h1>Messages</h1>
+</div>
+
+<div class="cms-notice-list">
+    {% for msg in messages %}
+    <div class="cms-notice-card {% if not msg.is_read %}cms-message-unread{% endif %}">
+        <div class="cms-notice-top">
+            <h3 class="cms-notice-title">{{ msg.subject }}</h3>
+            <span class="cms-notice-date">{{ msg.created_at|date:"M d, Y" }}</span>
+        </div>
+        <p class="cms-notice-body">{{ msg.body }}</p>
+        <p class="text-xs text-gray-500 mt-2">From: {{ msg.sender.name }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

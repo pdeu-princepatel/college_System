@@ -1,0 +1,17 @@
+{% extends 'staff/base_staff.html' %}
+{% block content %}
+<div class="cms-module-header">
+    <h1>Edit Student: {{ student.name }}</h1>
+</div>
+
+<div class="cms-form-card">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="mt-6">
+            <button type="submit" class="cms-btn-primary">Save Changes</button>
+            <a href="{% url 'staff_students' %}" class="cms-btn-secondary ml-4">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

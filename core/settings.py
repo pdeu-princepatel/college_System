@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "cms"
+    "cms",
+    "admin_dashboard",
 ]
 
 UNFOLD = {
@@ -191,6 +192,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "cms.context_processors.student_nav_context",
+                "admin_dashboard.context_processors.sidebar_links",
             ],
         },
     },

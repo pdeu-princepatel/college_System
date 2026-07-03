@@ -1,0 +1,40 @@
+{% extends 'staff/base_staff.html' %}
+{% block content %}
+<div class="cms-module-header">
+    <h1>Faculty Directory</h1><a href="{% url 'staff_add_faculty' %}" class="cms-btn-primary">+ Add Faculty</a>
+</div>
+
+<form method="GET" class="cms-filter-bar">
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search by name..." class="cms-form-input">
+    
+    <select name="department" class="cms-form-select">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept.id }}" {% if selected_dept|add:"0" == dept.id %}selected{% endif %}>
+            {{ dept.name }}
+        </option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit" class="cms-btn-primary">Filter</button>
+</form>
+<div class="cms-table-card">
+    <table class="cms-dashboard-table">
+        <thead>
+            <tr><th>Name</th><th>Designation</th><th>Department</th><th>Actions</th></tr>
+        </thead>
+       <tbody>
+    {% for f in faculty %}
+    <tr>
+        <td>{{ f.name }}</td>
+        <td>{{ f.designation }}</td>
+        <td><span class="cms-dept-badge">{{ f.department.name }}</span></td>
+        <td>
+            <a href="{% url 'staff_edit_faculty' f.id %}" class="cms-btn-secondary text-xs py-1 px-2">Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+    </table>
+</div>
+{% endblock %}

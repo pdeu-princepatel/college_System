@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CMS Admin Portal</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F4F7FA]"> <div class="flex h-screen overflow-hidden">
+        <aside class="w-64 bg-[#0D1B2A] text-white flex flex-col flex-shrink-0">
+            <div class="p-6 text-xl font-bold tracking-widest uppercase border-b border-[#1B263B]">
+                College Admin
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto py-4">
+                {% for link in admin_nav %}
+                <a href="{% url link.url %}" 
+                   class="block px-6 py-3 transition-all {% if request.resolver_match.url_name == link.url %}bg-[#1B263B] border-r-4 border-[#E0E1DD]{% else %}hover:bg-[#1B263B]{% endif %} text-[#E0E1DD] font-semibold text-sm uppercase tracking-wider">
+                    {{ link.icon }} {{ link.name }}
+                </a>
+                {% endfor %}
+            </nav>
+            <div class="border-t border-[#1B263B] p-4">
+    <a href="{% url 'staff_logout' %}" 
+       class="flex items-center gap-3 px-6 py-3 text-[#E0E1DD] hover:bg-red-900/30 hover:text-red-300 font-semibold text-sm uppercase transition-all rounded-lg">
+       <span>🚪</span> Logout
+    </a>
+</div>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto p-10">
+            <div class="cms-main-container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
+</html>

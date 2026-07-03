@@ -1,0 +1,45 @@
+{% extends 'staff/base_staff.html' %}
+{% block content %}
+<div class="flex justify-between mb-6">
+    <h2 class="text-2xl font-bold">Manage Students</h2>
+    <a href="{% url 'staff_add_student' %}" class="bg-[#0D1B2A] text-white px-4 py-2 rounded">+ Add Student</a>
+</div>
+<form method="GET" class="cms-filter-bar">
+    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search by name..." class="cms-form-input">
+    
+    <select name="department" class="cms-form-select">
+        <option value="">All Departments</option>
+        {% for dept in departments %}
+        <option value="{{ dept.id }}" {% if selected_dept|add:"0" == dept.id %}selected{% endif %}>
+            {{ dept.name }}
+        </option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit" class="cms-btn-primary">Filter</button>
+</form>
+<div class="bg-white rounded shadow overflow-hidden">
+    <table class="cms-dashboard-table">
+    <thead>
+        <tr>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Dept</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.roll_no }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.department.name }}</td>
+            <td>
+                <a href="{% url 'staff_edit_student' s.id %}" class="cms-btn-secondary text-xs py-1 px-2">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

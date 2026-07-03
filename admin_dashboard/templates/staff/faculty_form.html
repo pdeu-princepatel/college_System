@@ -1,0 +1,27 @@
+{% extends 'staff/base_staff.html' %}
+{% load static %}
+{% block content %}
+<div class="cms-module-header">
+    <h1>{% if faculty %}Edit Faculty{% else %}Add Faculty{% endif %}</h1>
+</div>
+
+<div class="cms-form-card">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="cms-form-group">
+            <label>Name:</label>
+            {{ form.name }}
+        </div>
+        <div class="cms-form-group">
+            <label>Designation:</label>
+            {{ form.designation }}
+        </div>
+        <div class="cms-form-group">
+            <label>Department:</label>
+            {{ form.department }}
+        </div>
+        <button type="submit" class="cms-btn-primary">Save Faculty</button>
+        <a href="{% url 'staff_faculty' %}" class="cms-btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
